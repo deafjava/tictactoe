@@ -4,34 +4,23 @@ import lombok.Getter;
 
 import java.util.Optional;
 
-public enum Marker {
-    X("X"), O("O"), CUSTOM(null);
+@Getter
+public class Marker {
 
-    private final String notation;
+    private String character;
 
-    @Getter
-    private String custom;
-
-    Marker(String notation) {
-
-        this.notation = notation;
+    public Marker(String character) {
+        this.character = character;
     }
 
-    public void setCustom(String custom) {
-        this.custom = custom;
+    public String getCharacter() throws NotYetSetCharacterException {
+        return Optional.ofNullable(character).orElseThrow(NotYetSetCharacterException::new);
+
     }
 
-    public String getNotation() throws NotYetSetCustomException {
-
-        if (notation == null) {
-            return Optional.of(custom).orElseThrow(NotYetSetCustomException::new);
-        }
-        return notation;
-    }
-
-    public class NotYetSetCustomException extends Exception {
-        public NotYetSetCustomException() {
-            super("Oops! Notation for custom hasn't been set yet!");
+    public class NotYetSetCharacterException extends Exception {
+        public NotYetSetCharacterException() {
+            super("Oops! There is no character set for this marker!");
         }
     }
 }

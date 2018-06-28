@@ -8,9 +8,9 @@ import static org.junit.Assert.assertTrue;
 public class GameTest {
 
     @Test
-    public void thereIsAWinnerFirstLineTest() throws Grid.TooShortOrTooLargeException {
-        Player p1 = new Player("Alfa", Marker.X);
-        Player p2 = new Player("Beta", Marker.O);
+    public void thereIsAWinnerFirstLineTest()throws Exception {
+        Player p1 = new Player("Alfa", new Marker("X"));
+        Player p2 = new Player("Beta", new Marker("O"));
 
         Grid grid = new Grid(3);
         grid.mark(new Field(0, 0, p1));
@@ -27,9 +27,9 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerMiddleLineTest() throws Grid.TooShortOrTooLargeException {
-        Player p1 = new Player("Alfa", Marker.X);
-        Player p2 = new Player("Beta", Marker.O);
+    public void thereIsAWinnerMiddleLineTest()throws Exception {
+        Player p1 = new Player("Alfa", new Marker("X"));
+        Player p2 = new Player("Beta", new Marker("O"));
 
         Grid grid = new Grid(3);
 
@@ -47,9 +47,9 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerLastLineTest() throws Grid.TooShortOrTooLargeException {
-        Player p1 = new Player("Alfa", Marker.X);
-        Player p2 = new Player("Beta", Marker.O);
+    public void thereIsAWinnerLastLineTest()throws Exception {
+        Player p1 = new Player("Alfa", new Marker("X"));
+        Player p2 = new Player("Beta", new Marker("O"));
 
         Grid grid = new Grid(3);
 
@@ -69,9 +69,9 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerLastColumnTest() throws Grid.TooShortOrTooLargeException {
-        Player p1 = new Player("Alfa", Marker.X);
-        Player p2 = new Player("Beta", Marker.O);
+    public void thereIsAWinnerLastColumnTest()throws Exception {
+        Player p1 = new Player("Alfa", new Marker("X"));
+        Player p2 = new Player("Beta", new Marker("O"));
 
         Grid grid = new Grid(3);
 
@@ -91,9 +91,9 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerMiddleColumnTest() throws Grid.TooShortOrTooLargeException {
-        Player p1 = new Player("Alfa", Marker.X);
-        Player p2 = new Player("Beta", Marker.O);
+    public void thereIsAWinnerMiddleColumnTest()throws Exception {
+        Player p1 = new Player("Alfa", new Marker("X"));
+        Player p2 = new Player("Beta", new Marker("O"));
 
         Grid grid = new Grid(3);
 
@@ -113,9 +113,9 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerFirstColumnTest() throws Grid.TooShortOrTooLargeException {
-        Player p1 = new Player("Alfa", Marker.X);
-        Player p2 = new Player("Beta", Marker.O);
+    public void thereIsAWinnerFirstColumnTest()throws Exception {
+        Player p1 = new Player("Alfa", new Marker("X"));
+        Player p2 = new Player("Beta", new Marker("O"));
 
         Grid grid = new Grid(3);
 
@@ -135,9 +135,9 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerStraightDiagonalTest() throws Grid.TooShortOrTooLargeException {
-        Player p1 = new Player("Alfa", Marker.X);
-        Player p2 = new Player("Beta", Marker.O);
+    public void thereIsAWinnerStraightDiagonalTest()throws Exception {
+        Player p1 = new Player("Alfa", new Marker("X"));
+        Player p2 = new Player("Beta", new Marker("O"));
 
         Grid grid = new Grid(3);
 
@@ -157,9 +157,9 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerInverseDiagonalTest() throws Grid.TooShortOrTooLargeException {
-        Player p1 = new Player("Alfa", Marker.X);
-        Player p2 = new Player("Beta", Marker.O);
+    public void thereIsAWinnerInverseDiagonalTest()throws Exception {
+        Player p1 = new Player("Alfa", new Marker("X"));
+        Player p2 = new Player("Beta", new Marker("O"));
 
         Grid grid = new Grid(3);
 
@@ -179,12 +179,10 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerWithMaxSetupTest() throws Grid.TooShortOrTooLargeException {
-        Player p1 = new Player("Alfa", Marker.X);
-        Player p2 = new Player("Beta", Marker.O);
-        Marker marker = Marker.CUSTOM;
-        marker.setCustom("H");
-        Player p3 = new Player("Beta", Marker.CUSTOM);
+    public void thereIsAWinnerWithMaxSetupTest()throws Exception {
+        Player p1 = new Player("Alfa", new Marker("X"));
+        Player p2 = new Player("Beta", new Marker("O"));
+        Player p3 = new Player("Beta", new Marker("M"));
 
         Grid grid = new Grid(10);
 
@@ -208,12 +206,10 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerDiagonalWithMaxSetupTest() throws Grid.TooShortOrTooLargeException {
-        Player p1 = new Player("Alfa", Marker.X);
-        Player p2 = new Player("Beta", Marker.O);
-        Marker marker = Marker.CUSTOM;
-        marker.setCustom("H");
-        Player p3 = new Player("Beta", Marker.CUSTOM);
+    public void thereIsAWinnerDiagonalWithMaxSetupTest()throws Exception, Grid.InvalidPositionException {
+        Player p1 = new Player("Alfa", new Marker("X"));
+        Player p2 = new Player("Beta", new Marker("O"));
+        Player p3 = new Player("Beta", new Marker("M"));
 
         Grid grid = new Grid(10);
 

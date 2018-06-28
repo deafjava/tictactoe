@@ -26,8 +26,12 @@ public class Grid {
         return fieldOpt.orElseThrow(NotMarkedFieldException::new);
     }
 
-    public void mark(Field field) {
-        fields[field.getPosX()][field.getPosY()] = field;
+    public void mark(Field field) throws InvalidPositionException {
+        try {
+            fields[field.getPosX()][field.getPosY()] = field;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidPositionException(field.getPosX(), field.getPosY());
+        }
     }
 
     public class TooShortOrTooLargeException extends Exception {
@@ -39,6 +43,12 @@ public class Grid {
     public class NotMarkedFieldException extends Exception {
         public NotMarkedFieldException() {
             super("This field hasn't been yet marked by any of players!");
+        }
+    }
+
+    public class InvalidPositionException extends Exception {
+        public InvalidPositionException(int x, int y) {
+            super("Oops! There is no such position: " + x + "," + y);
         }
     }
 }
