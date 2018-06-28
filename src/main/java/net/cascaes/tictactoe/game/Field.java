@@ -1,10 +1,13 @@
 package net.cascaes.tictactoe.game;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class Field {
-    private Short posX;
-    private Short posY;
+    private int posX;
+    private int posY;
     private Player player;
+
 }

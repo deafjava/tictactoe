@@ -4,5 +4,9 @@ import lombok.Data;
 
 @Data
 public class Score {
-    private Integer wins;
+    private Integer wins = 0;
+
+    public void addWin() {
+        wins++;
+    }
 }
