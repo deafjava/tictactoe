@@ -1,4 +1,4 @@
-package net.cascaes.tictactoe.game;
+package net.cascaes.tictactoe.game.engine;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +21,10 @@ public class Grid {
         setSize(size);
     }
 
+    public void clear() {
+        fields = new Field[size][size];
+    }
+
     public Field getField(int x, int y) throws NotMarkedFieldException {
         Optional<Field> fieldOpt = Optional.ofNullable(fields[x][y]);
         return fieldOpt.orElseThrow(NotMarkedFieldException::new);
@@ -28,6 +32,8 @@ public class Grid {
 
     public void mark(Field field) throws InvalidPositionException {
         try {
+            Optional<Field> fieldOpt = Optional.ofNullable(fields[field.getPosX()][field.getPosY()]);
+            if (fieldOpt.isPresent()) throw new InvalidPositionException(field.getPosX(), field.getPosY());
             fields[field.getPosX()][field.getPosY()] = field;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidPositionException(field.getPosX(), field.getPosY());
@@ -48,7 +54,7 @@ public class Grid {
 
     public class InvalidPositionException extends Exception {
         public InvalidPositionException(int x, int y) {
-            super("Oops! There is no such position: " + x + "," + y);
+            super("Oops! There is no such position or it's already marked (" + (x + 1) + "," + (y + 1) + "): ");
         }
     }
 }

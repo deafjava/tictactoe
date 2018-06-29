@@ -1,19 +1,25 @@
-package net.cascaes.tictactoe.game;
+package net.cascaes.tictactoe.game.display;
 
 import lombok.experimental.UtilityClass;
+import net.cascaes.tictactoe.game.engine.*;
 
 @UtilityClass
-public class PrintTicTacToe {
+public class TicTacToeScreen {
+    private static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 
-    public String screen(Grid grid, Player p1, Player p2, Player p3) {
+    public void print(Grid grid, Player[] players, int turn, Winner winner) {
+        clearScreen();
         StringBuilder screen = new StringBuilder();
         screen.append("-----------------------------------------\n");
         screen.append("----------- Tic Tac Toe 2.0 -------------\n");
         screen.append("-----------------------------------------\n\n");
         screen.append("SCORE                                    \n");
-        screen.append("Player 1:\t" + p1.getScore().getWins() + "\n");
-        screen.append("Player 2:\t" + p2.getScore().getWins() + "\n");
-        screen.append("Computer:\t" + p3.getScore().getWins() + "\n\n");
+        screen.append("Player 1:\t" + players[0].getScore().getWins() + "\n");
+        screen.append("Player 2:\t" + players[1].getScore().getWins() + "\n");
+        screen.append("Computer:\t" + players[2].getScore().getWins() + "\n\n");
         screen.append("  | ");
         int width = 4;
         for (int i = 0; i < grid.getSize(); i++) {
@@ -45,6 +51,14 @@ public class PrintTicTacToe {
             }
             screen.append("\n");
         }
-        return screen.toString();
+        if(winner.isWinner()) {
+            screen.append("\n Congratulations! ");
+            screen.append(winner.getPlayer().getName());
+            screen.append(" won!\n");
+        }
+        screen.append("\n-- Type \"exit\" to leave --\n");
+        screen.append(players[turn].getName());
+        screen.append("'s turn. Set your position, in \"x,y\": ");
+        System.out.print(screen);
     }
 }

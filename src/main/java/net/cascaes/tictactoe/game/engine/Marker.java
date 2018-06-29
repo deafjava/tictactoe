@@ -1,4 +1,4 @@
-package net.cascaes.tictactoe.game;
+package net.cascaes.tictactoe.game.engine;
 
 import lombok.Getter;
 

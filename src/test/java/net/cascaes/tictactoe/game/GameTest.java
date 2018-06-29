@@ -1,5 +1,6 @@
 package net.cascaes.tictactoe.game;
 
+import net.cascaes.tictactoe.game.engine.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -8,7 +9,35 @@ import static org.junit.Assert.assertTrue;
 public class GameTest {
 
     @Test
-    public void thereIsAWinnerFirstLineTest()throws Exception {
+    public void thereIsNoWinnerTest() throws Exception {
+        Player p1 = new Player("Alfa", new Marker("X"));
+        Player p2 = new Player("Beta", new Marker("O"));
+
+        Grid grid = new Grid(3);
+        grid.mark(new Field(0, 0, p1));
+        grid.mark(new Field(0, 1, p1));
+        grid.mark(new Field(2, 1, p1));
+
+        grid.mark(new Field(1, 0, p2));
+        grid.mark(new Field(1, 1, p2));
+
+        Game game = new Game();
+        Player winner = game.horizontal(grid);
+        assertEquals(winner, new NullPlayer());
+
+        winner = game.vertical(grid);
+        assertEquals(winner, new NullPlayer());
+
+        winner = game.straightDiagonal(grid);
+        assertEquals(winner, new NullPlayer());
+
+        winner = game.inverseDiagonal(grid);
+        assertEquals(winner, new NullPlayer());
+
+    }
+
+    @Test
+    public void thereIsAWinnerFirstLineTest() throws Exception {
         Player p1 = new Player("Alfa", new Marker("X"));
         Player p2 = new Player("Beta", new Marker("O"));
 
@@ -27,7 +56,7 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerMiddleLineTest()throws Exception {
+    public void thereIsAWinnerMiddleLineTest() throws Exception {
         Player p1 = new Player("Alfa", new Marker("X"));
         Player p2 = new Player("Beta", new Marker("O"));
 
@@ -47,7 +76,7 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerLastLineTest()throws Exception {
+    public void thereIsAWinnerLastLineTest() throws Exception {
         Player p1 = new Player("Alfa", new Marker("X"));
         Player p2 = new Player("Beta", new Marker("O"));
 
@@ -69,7 +98,7 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerLastColumnTest()throws Exception {
+    public void thereIsAWinnerLastColumnTest() throws Exception {
         Player p1 = new Player("Alfa", new Marker("X"));
         Player p2 = new Player("Beta", new Marker("O"));
 
@@ -91,7 +120,7 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerMiddleColumnTest()throws Exception {
+    public void thereIsAWinnerMiddleColumnTest() throws Exception {
         Player p1 = new Player("Alfa", new Marker("X"));
         Player p2 = new Player("Beta", new Marker("O"));
 
@@ -113,7 +142,7 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerFirstColumnTest()throws Exception {
+    public void thereIsAWinnerFirstColumnTest() throws Exception {
         Player p1 = new Player("Alfa", new Marker("X"));
         Player p2 = new Player("Beta", new Marker("O"));
 
@@ -135,7 +164,7 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerStraightDiagonalTest()throws Exception {
+    public void thereIsAWinnerStraightDiagonalTest() throws Exception {
         Player p1 = new Player("Alfa", new Marker("X"));
         Player p2 = new Player("Beta", new Marker("O"));
 
@@ -157,7 +186,7 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerInverseDiagonalTest()throws Exception {
+    public void thereIsAWinnerInverseDiagonalTest() throws Exception {
         Player p1 = new Player("Alfa", new Marker("X"));
         Player p2 = new Player("Beta", new Marker("O"));
 
@@ -179,10 +208,10 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerWithMaxSetupTest()throws Exception {
+    public void thereIsAWinnerWithMaxSetupTest() throws Exception {
         Player p1 = new Player("Alfa", new Marker("X"));
         Player p2 = new Player("Beta", new Marker("O"));
-        Player p3 = new Player("Beta", new Marker("M"));
+        Player p3 = new Player("CPU", new Marker("M"));
 
         Grid grid = new Grid(10);
 
@@ -206,10 +235,10 @@ public class GameTest {
     }
 
     @Test
-    public void thereIsAWinnerDiagonalWithMaxSetupTest()throws Exception, Grid.InvalidPositionException {
+    public void thereIsAWinnerDiagonalWithMaxSetupTest() throws Exception, Grid.InvalidPositionException {
         Player p1 = new Player("Alfa", new Marker("X"));
         Player p2 = new Player("Beta", new Marker("O"));
-        Player p3 = new Player("Beta", new Marker("M"));
+        Player p3 = new Player("CPU", new Marker("M"));
 
         Grid grid = new Grid(10);
 

@@ -1,4 +1,4 @@
-package net.cascaes.tictactoe.game;
+package net.cascaes.tictactoe.game.engine;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import lombok.Data;
 public class Score {
     private Integer wins = 0;
 
-    public void addWin() {
+    public void incrementWin() {
         wins++;
     }
 }
