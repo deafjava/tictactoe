@@ -3,10 +3,13 @@ package net.cascaes.tictactoe.game.engine;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Grid {
 
+    @Getter
     private Field[][] fields;
 
     @Setter
@@ -35,9 +38,21 @@ public class Grid {
             Optional<Field> fieldOpt = Optional.ofNullable(fields[field.getPosX()][field.getPosY()]);
             if (fieldOpt.isPresent()) throw new InvalidPositionException(field.getPosX(), field.getPosY());
             fields[field.getPosX()][field.getPosY()] = field;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (Exception e) {
             throw new InvalidPositionException(field.getPosX(), field.getPosY());
         }
+    }
+
+    public List<String> remainedPositions() {
+        List<String> list = new ArrayList<>();
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                if (fields[x][y] == null) {
+                    list.add((x + 1) + "," + (y + 1));
+                }
+            }
+        }
+        return list;
     }
 
     public class TooShortOrTooLargeException extends Exception {

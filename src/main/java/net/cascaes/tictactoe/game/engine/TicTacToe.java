@@ -1,8 +1,7 @@
 package net.cascaes.tictactoe.game.engine;
 
 import net.cascaes.tictactoe.game.display.TicTacToeScreen;
-
-import java.util.Scanner;
+import net.cascaes.tictactoe.game.engine.exceptions.InvalidInputDataException;
 
 public class TicTacToe {
     public static void play(int size, String[] characters) {
@@ -19,33 +18,42 @@ public class TicTacToe {
 
             while (!endGame) {
                 Winner winner = game.scan(grid);
-                if (winner.isWinner()) {
+                if (winner.isWinner() || winner.isFullDraw()) {
                     turn = 0;
                 }
                 TicTacToeScreen.print(grid, players, turn, winner);
-                if(turn == 2) {
-                    game.cpuPlays();
-                }
-                Scanner scanner = new Scanner(System.in);
-                String input = scanner.nextLine();
-                if (endGame = parseExit(input)) {
+                if (winner.isFullDraw()) {
+                    grid.clear();
+                    TicTacToeScreen.printContinue();
+                    TicTacToeScreen.enterToContinue();
                     continue;
                 }
-                boolean again;
-                do {
-                    try {
-                        grid.mark(new Field(input, players[turn]));
-                        again = false;
-                        turn = next(turn);
-                    } catch (Grid.InvalidPositionException e) {
-                        System.err.print(e.getMessage());
-                        again = true;
-                        input = scanner.nextLine();
+                if (players[turn].isCpu()) {
+                    game.cpuPlays(grid, players[turn]);
+                    turn = next(turn);
+                } else {
+
+                    String input = TicTacToeScreen.readInput();
+
+                    if (endGame = parseExit(input)) {
+                        continue;
                     }
-                } while (again);
+                    boolean again;
+                    do {
+                        try {
+                            grid.mark(new Field(input, players[turn]));
+                            again = false;
+                            turn = next(turn);
+                        } catch (Grid.InvalidPositionException | InvalidInputDataException e) {
+                            TicTacToeScreen.printErr(e);
+                            again = true;
+                            input = TicTacToeScreen.readInput();
+                        }
+                    } while (again);
+                }
             }
         } catch (Grid.TooShortOrTooLargeException e) {
-            System.err.println(e.getMessage());
+            TicTacToeScreen.printErr(e);
         }
 
     }
@@ -62,9 +70,9 @@ public class TicTacToe {
     private static Player[] initPlayers(String[] characters) { // TODO: Factory Pattern
         Player[] players = new Player[3];
 
-        players[0] = new Player("Player 1", new Marker(characters[0]));
-        players[1] = new Player("Player 2", new Marker(characters[1]));
-        players[2] = new Player("Player 3 (CPU)", new Marker(characters[2]));
+        players[0] = new Player("Player 1", new Marker(characters[0]), false);
+        players[1] = new Player("Player 2", new Marker(characters[1]), false);
+        players[2] = new Player("Player 3 (CPU)", new Marker(characters[2]), true);
 
         return players;
     }

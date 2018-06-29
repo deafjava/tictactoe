@@ -9,10 +9,12 @@ public class Player {
     private Marker marker;
     private String name;
     private Score score;
+    private boolean cpu;
 
-    public Player(String name, Marker marker) {
+    public Player(String name, Marker marker, boolean cpu) {
         setName(name);
         setMarker(marker);
+        setCpu(cpu);
         score = new Score();
     }
 

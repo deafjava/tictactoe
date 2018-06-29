@@ -9,6 +9,8 @@ public class Winner {
 
     private Player player;
 
+    private boolean fullDraw;
+
     public boolean isWinner() {
         return !player.equals(new NullPlayer());
     }

@@ -3,14 +3,17 @@ package net.cascaes.tictactoe.game.display;
 import lombok.experimental.UtilityClass;
 import net.cascaes.tictactoe.game.engine.*;
 
+import java.util.Scanner;
+
 @UtilityClass
-public class TicTacToeScreen {
+public class TicTacToeScreen  {
+
     private static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
-    public void print(Grid grid, Player[] players, int turn, Winner winner) {
+    public static void print(Grid grid, Player[] players, int turn, Winner winner) {
         clearScreen();
         StringBuilder screen = new StringBuilder();
         screen.append("-----------------------------------------\n");
@@ -51,14 +54,48 @@ public class TicTacToeScreen {
             }
             screen.append("\n");
         }
-        if(winner.isWinner()) {
-            screen.append("\n Congratulations! ");
-            screen.append(winner.getPlayer().getName());
-            screen.append(" won!\n");
+        if(winner.isFullDraw()){
+            screen.append("\nOoh! Full draw! Nobody won! Let's try again!\n\n");
+            System.out.print(screen);
+            return;
         }
-        screen.append("\n-- Type \"exit\" to leave --\n");
+        if (winner.isWinner()) {
+            screen.append("\n" + winner.getPlayer().getName());
+            screen.append(" won! Congratulations!\n");
+
+        }
+        screen.append("\n-- Type \"exit\" to leave --\n\n");
         screen.append(players[turn].getName());
-        screen.append("'s turn. Set your position, in \"x,y\": ");
         System.out.print(screen);
+        if (players[turn].isCpu()) {
+            try {
+                System.out.print("'s turn. CPU thinking...\n");
+                Thread.sleep(2000);
+                System.out.print("\nCPU played!\n\n");
+                Thread.sleep(1000);
+            } catch (InterruptedException ignored) {
+            }
+        } else {
+            System.out.print("'s turn. Set your position, in \"x,y\": ");
+        }
+
+    }
+
+    public static void printContinue() {
+        System.out.println("Press ENTER to continue...");
+    }
+
+    public static String readInput() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public static void enterToContinue() {
+        Scanner enterContinue = new Scanner(System.in);
+        enterContinue.nextLine();
+    }
+
+    public static void printErr(Throwable e) {
+        System.err.print(e.getMessage());
     }
 }

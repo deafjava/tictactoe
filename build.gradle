@@ -12,10 +12,24 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'TicTacToe 2.0',
+                'Implementation-Version': '1.0',
+                'Main-Class': 'net.cascaes.tictactoe.game.display.TicTacToeConsole'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+
+
 group = 'net.cascaes.tictactoe'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 sourceCompatibility = 1.8
 
 repositories {
@@ -28,10 +42,4 @@ dependencies {
     runtime('org.springframework.boot:spring-boot-devtools')
     compileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-}
-
-jar {
-    manifest {
-        attributes 'Main-Class': 'net.cascaes.tictactoe.game.display.TicTacToeConsole'
-    }
 }

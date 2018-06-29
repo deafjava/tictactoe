@@ -1,9 +1,9 @@
 package net.cascaes.tictactoe.game.engine;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import net.cascaes.tictactoe.game.engine.exceptions.InvalidInputDataException;
+
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Line {
 
@@ -23,7 +23,8 @@ public class Game implements Line {
         if (!player.equals(nullPlayer)) {
             grid.clear();
         }
-        return new Winner(player);
+
+        return new Winner(player, grid.remainedPositions().isEmpty());
     }
 
 
@@ -115,7 +116,16 @@ public class Game implements Line {
         return noPlayer;
     }
 
-    public void cpuPlays(Grid grid) { // TODO: robot
+    public void cpuPlays(Grid grid, Player cpuPlayer) {
+        try {
+            List<String> remainedPos = grid.remainedPositions();
+            int i = randomPos(remainedPos.size());
+            grid.mark(new Field(remainedPos.get(i), cpuPlayer));
+        } catch (Grid.InvalidPositionException | InvalidInputDataException ignored) {
+        }
+    }
 
+    private int randomPos(Integer size) {
+        return ThreadLocalRandom.current().nextInt(0, size);
     }
 }
