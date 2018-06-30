@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.cascaes.tictactoe.GameTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2018-07-01T05:19:38" hostname="EB120244.local" time="0.028">
+  <properties/>
+  <testcase name="thereIsAWinnerLastLineTest" classname="net.cascaes.tictactoe.GameTest" time="0.017"/>
+  <testcase name="thereIsAWinnerDiagonalWithMaxSetupTest" classname="net.cascaes.tictactoe.GameTest" time="0.0"/>
+  <testcase name="thereIsAWinnerLastColumnTest" classname="net.cascaes.tictactoe.GameTest" time="0.001"/>
+  <testcase name="thereIsAWinnerInverseDiagonalTest" classname="net.cascaes.tictactoe.GameTest" time="0.0"/>
+  <testcase name="thereIsAWinnerStraightDiagonalTest" classname="net.cascaes.tictactoe.GameTest" time="0.0"/>
+  <testcase name="thereIsNoWinnerTest" classname="net.cascaes.tictactoe.GameTest" time="0.001"/>
+  <testcase name="thereIsAWinnerWithMaxSetupTest" classname="net.cascaes.tictactoe.GameTest" time="0.001"/>
+  <testcase name="thereIsAWinnerMiddleLineTest" classname="net.cascaes.tictactoe.GameTest" time="0.0"/>
+  <testcase name="thereIsAWinnerFirstColumnTest" classname="net.cascaes.tictactoe.GameTest" time="0.0"/>
+  <testcase name="thereIsAWinnerFirstLineTest" classname="net.cascaes.tictactoe.GameTest" time="0.0"/>
+  <testcase name="thereIsAWinnerMiddleColumnTest" classname="net.cascaes.tictactoe.GameTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

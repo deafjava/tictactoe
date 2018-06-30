@@ -6,40 +6,72 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+allprojects {
+    group 'net.cascaes.tictactoe'
+    version '1.0.0'
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://repo.spring.io/libs-milestone'
+        }
+    }
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        }
+
+    }
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter')
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+        compileOnly 'org.projectlombok:lombok'
+        testCompile "org.mockito:mockito-core"
+        testCompile 'junit:junit'
+        testCompileOnly 'org.projectlombok:lombok'
+
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'application'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'TicTacToe 2.0',
-                'Implementation-Version': '1.0',
-                'Main-Class': 'net.cascaes.tictactoe.game.display.TicTacToeConsole'
-    }
-    baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
+mainClassName = 'net.cascaes.tictactoe.game.GameApplication'
 
-
-
-group = 'net.cascaes.tictactoe'
-version = '1.0.0'
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
+//task fatJar(type: Jar) {
+//    manifest {
+//        attributes 'Implementation-Title': 'TicTacToe 2.0',
+//                'Implementation-Version': '1.0',
+//                'Main-Class': 'net.cascaes.tictactoe.game.GameApplication'
+//    }
+//    baseName = project.name + '-all'
+//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+//    with jar
+//}
 
 
 dependencies {
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
+    compile project(":engine")
+    compile('com.fasterxml.jackson.core:jackson-databind')
+    compile('org.springframework.boot:spring-boot-starter')
     runtime('org.springframework.boot:spring-boot-devtools')
-    compileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+}
+
+test {
+    systemProperty 'spring.profiles.active', 'test'
 }
