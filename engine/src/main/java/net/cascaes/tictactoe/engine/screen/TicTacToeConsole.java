@@ -1,21 +1,16 @@
 package net.cascaes.tictactoe.engine.screen;
 
-import net.cascaes.tictactoe.engine.gear.Printer;
 import net.cascaes.tictactoe.engine.structure.*;
+import net.cascaes.tictactoe.engine.utils.ScreenUtils;
 
 import java.util.Scanner;
 
 
 public class TicTacToeConsole implements Printer {
 
-    private static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
     @Override
     public void screen(Grid grid, Player[] players, int turn, Winner winner) {
-        clearScreen();
+        ScreenUtils.clearScreen();
         StringBuilder screen = new StringBuilder();
         screen.append("-----------------------------------------\n");
         screen.append("----------- Tic Tac Toe 2.0 -------------\n");
@@ -45,7 +40,7 @@ public class TicTacToeConsole implements Printer {
                     screen.append(f.getPlayer().getMarker().getCharacter() + " | ");
                 } catch (Grid.NotMarkedFieldException e) {
                     screen.append("  | ");
-                } catch (Marker.NotYetSetCharacterException e) {
+                } catch (Marker.NotValidCharacterException e) {
                     screen.append("? | ");
                 }
             }

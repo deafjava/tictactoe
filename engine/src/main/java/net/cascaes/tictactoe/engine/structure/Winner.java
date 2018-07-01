@@ -5,6 +5,10 @@ import lombok.Data;
 import net.cascaes.tictactoe.engine.structure.NullPlayer;
 import net.cascaes.tictactoe.engine.structure.Player;
 
+/**
+ * To handle the winner (or not) of the game
+ */
+
 @Data
 @AllArgsConstructor
 public class Winner {

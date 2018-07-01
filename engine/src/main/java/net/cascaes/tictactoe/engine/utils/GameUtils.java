@@ -27,4 +27,8 @@ public class GameUtils {
     public int randomTurn() {
         return ThreadLocalRandom.current().nextInt(0, 3);
     }
+
+    public int randomPos(Integer size) {
+        return ThreadLocalRandom.current().nextInt(0, size);
+    }
 }

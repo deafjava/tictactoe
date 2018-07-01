@@ -1,18 +1,27 @@
 package net.cascaes.tictactoe.engine.structure;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Grid where playfield lies.
+ *
+ * The presence or absence of a field in the grid means the played or not yet field by a player
+ */
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Grid {
 
     @Getter
     private Field[][] fields;
 
-    @Setter
+    @Setter(AccessLevel.PRIVATE)
     @Getter
     private Integer size;
 
@@ -29,8 +38,7 @@ public class Grid {
     }
 
     public Field getField(int x, int y) throws NotMarkedFieldException {
-        Optional<Field> fieldOpt = Optional.ofNullable(fields[x][y]);
-        return fieldOpt.orElseThrow(NotMarkedFieldException::new);
+        return Optional.ofNullable(fields[x][y]).orElseThrow(NotMarkedFieldException::new);
     }
 
     public void mark(Field field) throws InvalidPositionException {

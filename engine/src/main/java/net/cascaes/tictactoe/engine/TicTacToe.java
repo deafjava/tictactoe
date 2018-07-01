@@ -1,7 +1,8 @@
 package net.cascaes.tictactoe.engine;
 
 import net.cascaes.tictactoe.engine.exceptions.InvalidInputDataException;
-import net.cascaes.tictactoe.engine.gear.Printer;
+import net.cascaes.tictactoe.engine.gear.Game;
+import net.cascaes.tictactoe.engine.screen.Printer;
 import net.cascaes.tictactoe.engine.structure.*;
 import net.cascaes.tictactoe.engine.utils.GameUtils;
 import net.cascaes.tictactoe.engine.utils.IOUtils;
@@ -69,6 +70,5 @@ public class TicTacToe {
         } catch (Grid.TooShortOrTooLargeException e) {
             printer.printErr(e);
         }
-
     }
 }

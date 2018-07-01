@@ -35,10 +35,6 @@ public class TicTacToeGameTest {
     @Test
     public void useDefaultWhenFileNotProvidedTest() {
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("config_game.json").getFile());
-        System.out.println(file.getAbsolutePath());
-
         GameApplication.main(new String[]{""});
         String e = err.toString();
         assertTrue(e.contains("File reading error! Populating with default values."));
